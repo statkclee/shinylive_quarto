@@ -2,7 +2,8 @@ project:
   type: website
   output-dir: docs
 
-  
+lang: ko-KR
+date-format: "YYYY 년 MM 월 DD일"
 
 website:
   title: "쿼토 shinylive"
@@ -12,15 +13,40 @@ website:
         text: Home
       - template.qmd
       - helloworld.qmd
-
+      - text: "경우의 수"
+        menu: 
+          - href: combinatorics.qmd
+            text: "경우의 수"
+          - href: combinatorics-shinylive.qmd
+            text: "경우의 수: shinylive"
 format:
   html:
     theme: cosmo
     css: styles.css
+    code-link: true
+    code-fold: show
+    code-tools: true
+    code-block-bg: "white"
+    code-block-border-left: "#31BAE9"
+    highlight-style: github
     toc: true
 
+
+
 filters:
-   - lightbox
+  - lightbox
+  - webr   
 lightbox: auto
 
+execute:
+  freeze: auto
 
+engine: knitr
+
+knitr:
+  opts_chunk:
+    message: false
+    warning: false
+    collapse: false
+editor_options:
+  chunk_output_type: console

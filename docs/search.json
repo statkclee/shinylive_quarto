@@ -61,5 +61,54 @@
     "title": "템플릿",
     "section": "문서 컴파일",
     "text": "문서 컴파일\n쿼토문서를 컴파일하여 실행한다.\n$ quarto preview helloworld.qmd --no-browser --no-watch-inputs\n\n실행실행결과"
+  },
+  {
+    "objectID": "combinatorics.html",
+    "href": "combinatorics.html",
+    "title": "경우의 수",
+    "section": "",
+    "text": "우리는 매일 수많은 결정을 내린다. 아침에 일어나서 무엇을 입을지 결정하는 것부터 하루를 어떻게 보낼지, 어떤 음식을 먹을지, 이러한 모든 결정은 여러 선택지와 가능한 결과 사이에서 이루어진다. 예를 들어, 오늘 비가 올 확률이 50% 라면 우산을 가져갈지 말지 결정해야 한다. 이와 같이, 선택과 이에 따른 가능한 결과는 경우의 수(Combinatorics)1라는 수학적 개념으로 표현된다.\n경우의 수는 가능한 모든 선택과 결과를 계산하고 이해하는 데 도움을 준다. 이는 미래의 불확실성을 다루고 더 나은 결정을 내리는 데 중요하다. 예를 들어, 사업을 시작할 때 가능한 모든 시나리오와 그에 따른 이익과 손실을 고려해야 한다. 이러한 계산을 통해 위험을 이해하고 준비하며 미래를 예측하는 데 도움을 준다."
+  },
+  {
+    "objectID": "combinatorics.html#수식으로-표현",
+    "href": "combinatorics.html#수식으로-표현",
+    "title": "경우의 수",
+    "section": "수식으로 표현",
+    "text": "수식으로 표현\n기본 경우의 수를 수식으로 표현하는 것은 간단하다.\n\n단순 계산: 가능한 결과의 수는 단순히 그 수를 나타낸다. 예를 들어, 주사위를 던질 때 경우의 수는 \\(6\\)이다.\n곱의 법칙: 두 이상의 독립적인 사건이 있을 때, 첫 번째 사건의 가능한 결과의 수와 두 번째 사건의 가능한 결과의 수를 곱하여 총 경우의 수를 찾는다.\n\n수식: \\(N = n_1 \\times n_2 \\times \\ldots \\times n_k\\)\n\\(N\\)은 총 경우의 수이고, \\(n_1, n_2, \\ldots, n_k\\)는 각각의 사건에 대한 가능한 결과의 수이다.\n\n합의 법칙: 두 이상의 상호 배타적인 사건이 있을 때, 각 사건의 가능한 결과의 수를 더하여 총 경우의 수를 찾는다.\n\n수식: \\(N = n_1 + n_2 + \\ldots + n_k\\)\n\\(N\\)은 총 경우의 수이고, \\(n_1, n_2, \\ldots, n_k\\)는 각각의 사건에 대한 가능한 결과의 수이다."
+  },
+  {
+    "objectID": "combinatorics.html#footnotes",
+    "href": "combinatorics.html#footnotes",
+    "title": "경우의 수",
+    "section": "각주",
+    "text": "각주\n\n\n경우의 수는 영어로 “Number of Cases” 또는 “Counting”으로 표현할수 있으며 수학의 한분야로 조합론(Combinatorics)으로 번역된다.↩︎"
+  },
+  {
+    "objectID": "combinatorics.html#r-코드",
+    "href": "combinatorics.html#r-코드",
+    "title": "경우의 수",
+    "section": "R 코드",
+    "text": "R 코드\n주사위 한번 던지기, 동전 3번 던지기, 주사위와 동전 함께 던지는 경우의 수를 계산해보자.\n\n주사위\n🟡 Loading\n  webR...\n\n\n  \n\n\n\n\n동전 3번 던지기\n🟡 Loading\n  webR...\n\n\n  \n\n\n\n\n동전과 주사위 던지기\n🟡 Loading\n  webR..."
+  },
+  {
+    "objectID": "combinatorics.html#동전-던지기",
+    "href": "combinatorics.html#동전-던지기",
+    "title": "경우의 수",
+    "section": "동전 던지기",
+    "text": "동전 던지기\n#| standalone: true\n\n# Shiny 패키지 불러오기\nlibrary(shiny)\n\n# UI 정의\nui &lt;- fluidPage(\n  # 앱 제목\n  titlePanel(\"동전 던지기\"),\n  \n  # 사용자 입력을 위한 사이드바 레이아웃\n  sidebarLayout(\n    sidebarPanel(\n      # 슬라이더 입력 추가\n      sliderInput(\"num_flips\", \"던지기 횟수:\", min = 1, max = 100, value = 1),\n      # 버튼 추가\n      actionButton(\"flip_button\", \"동전 던지기\")\n    ),\n    \n    # 출력을 표시할 메인 패널\n    mainPanel(\n      textOutput(\"result\")\n    )\n  )\n)\n\n# 서버 로직 정의\nserver &lt;- function(input, output) {\n  \n  # 버튼이 클릭될 때마다 동전 던지기 결과 출력\n  observeEvent(input$flip_button, {\n    # 선택된 던지기 횟수에 따라 동전 던지기\n    coin_results &lt;- sample(c(\"앞면\", \"뒷면\"), input$num_flips, replace = TRUE)\n    # 결과 카운트\n    heads_count &lt;- sum(coin_results == \"앞면\")\n    tails_count &lt;- sum(coin_results == \"뒷면\")\n    # 결과 출력\n    output$result &lt;- renderText({\n      paste(\"앞면 횟수:\", heads_count, \" / 뒷면 횟수:\", tails_count)\n    })\n  })\n  \n}\n\n# 앱 실행\nshinyApp(ui = ui, server = server)"
+  },
+  {
+    "objectID": "combinatorics-shinylive.html",
+    "href": "combinatorics-shinylive.html",
+    "title": "경우의 수",
+    "section": "",
+    "text": "#| standalone: true\n#| viewerHeight: 350\n\n# Shiny 패키지 불러오기\nlibrary(shiny)\n\n# UI 정의\nui &lt;- fluidPage(\n  # 앱 제목\n  titlePanel(\"동전 던지기\"),\n  \n  # 사용자 입력을 위한 사이드바 레이아웃\n  sidebarLayout(\n    sidebarPanel(\n      # 슬라이더 입력 추가 (범위 1~10으로 제한)\n      sliderInput(\"num_flips\", \"던지기 횟수:\", min = 1, max = 10, value = 1),\n      # 버튼 추가\n      actionButton(\"flip_button\", \"동전 던지기\")\n    ),\n    \n    # 출력을 표시할 메인 패널\n    mainPanel(\n      uiOutput(\"result\")\n    )\n  )\n)\n\n# 서버 로직 정의\nserver &lt;- function(input, output) {\n  \n  # 버튼이 클릭될 때마다 동전 던지기 결과 출력\n  observeEvent(input$flip_button, {\n    # 선택된 던지기 횟수에 따라 동전 던지기\n    coin_results &lt;- sample(c(\"앞면\", \"뒷면\"), input$num_flips, replace = TRUE)\n    # 결과 카운트\n    heads_count &lt;- sum(coin_results == \"앞면\")\n    tails_count &lt;- sum(coin_results == \"뒷면\")\n    # 모든 경우의 수 계산\n    total_cases &lt;- 2^input$num_flips\n    # 결과 출력\n    result_text &lt;- paste(\n      \"동전 던지기 결과: \", paste(coin_results, collapse = \", \"),\n      \"&lt;br&gt;&lt;br&gt;앞면 횟수:\", heads_count,\n      \"&lt;br&gt;&lt;br&gt;뒷면 횟수:\", tails_count,\n      \"&lt;br&gt;&lt;br&gt;총 던지기 횟수:\", input$num_flips,\n      \"&lt;br&gt;&lt;br&gt;&lt;br&gt;총 경우의 수:\", total_cases,\n      sep = \"\"\n    )\n    output$result &lt;- renderUI({\n      HTML(result_text)\n    })\n  })\n  \n}\n\n# 앱 실행\nshinyApp(ui = ui, server = server)"
+  },
+  {
+    "objectID": "combinatorics-shinylive.html#동전-던지기",
+    "href": "combinatorics-shinylive.html#동전-던지기",
+    "title": "경우의 수",
+    "section": "",
+    "text": "#| standalone: true\n#| viewerHeight: 350\n\n# Shiny 패키지 불러오기\nlibrary(shiny)\n\n# UI 정의\nui &lt;- fluidPage(\n  # 앱 제목\n  titlePanel(\"동전 던지기\"),\n  \n  # 사용자 입력을 위한 사이드바 레이아웃\n  sidebarLayout(\n    sidebarPanel(\n      # 슬라이더 입력 추가 (범위 1~10으로 제한)\n      sliderInput(\"num_flips\", \"던지기 횟수:\", min = 1, max = 10, value = 1),\n      # 버튼 추가\n      actionButton(\"flip_button\", \"동전 던지기\")\n    ),\n    \n    # 출력을 표시할 메인 패널\n    mainPanel(\n      uiOutput(\"result\")\n    )\n  )\n)\n\n# 서버 로직 정의\nserver &lt;- function(input, output) {\n  \n  # 버튼이 클릭될 때마다 동전 던지기 결과 출력\n  observeEvent(input$flip_button, {\n    # 선택된 던지기 횟수에 따라 동전 던지기\n    coin_results &lt;- sample(c(\"앞면\", \"뒷면\"), input$num_flips, replace = TRUE)\n    # 결과 카운트\n    heads_count &lt;- sum(coin_results == \"앞면\")\n    tails_count &lt;- sum(coin_results == \"뒷면\")\n    # 모든 경우의 수 계산\n    total_cases &lt;- 2^input$num_flips\n    # 결과 출력\n    result_text &lt;- paste(\n      \"동전 던지기 결과: \", paste(coin_results, collapse = \", \"),\n      \"&lt;br&gt;&lt;br&gt;앞면 횟수:\", heads_count,\n      \"&lt;br&gt;&lt;br&gt;뒷면 횟수:\", tails_count,\n      \"&lt;br&gt;&lt;br&gt;총 던지기 횟수:\", input$num_flips,\n      \"&lt;br&gt;&lt;br&gt;&lt;br&gt;총 경우의 수:\", total_cases,\n      sep = \"\"\n    )\n    output$result &lt;- renderUI({\n      HTML(result_text)\n    })\n  })\n  \n}\n\n# 앱 실행\nshinyApp(ui = ui, server = server)"
   }
 ]

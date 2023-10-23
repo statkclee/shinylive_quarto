@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>쿼토 shinylive</title>
+<title>쿼토 shinylive - 경우의 수</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,6 +73,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<meta name="shinylive:serviceworker_dir" content=".">
+<script src="site_libs/quarto-contrib/shinylive-0.2.1/shinylive/load-shinylive-sw.js" type="module"></script>
+<script src="site_libs/quarto-contrib/shinylive-0.2.1/shinylive/run-python-blocks.js" type="module"></script>
+<link href="site_libs/quarto-contrib/shinylive-0.2.1/shinylive/shinylive.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/shinylive-quarto-css/shinylive-quarto.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -154,14 +159,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#동전-던지기" id="toc-동전-던지기" class="nav-link active" data-scroll-target="#동전-던지기">동전 던지기</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">쿼토 shinylive</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 코드</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">경우의 수</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 코드</button></div></div>
+<p class="subtitle lead">shinylive 앱</p>
 </div>
 
 
@@ -176,11 +188,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>쿼토와 shinylive 만남</p>
+<section id="동전-던지기" class="level2">
+<h2 class="anchored" data-anchor-id="동전-던지기">동전 던지기</h2>
+<pre class="shinylive-r" data-engine="r"><code>#| standalone: true
+#| viewerHeight: 350
+
+# Shiny 패키지 불러오기
+library(shiny)
+
+# UI 정의
+ui &lt;- fluidPage(
+  # 앱 제목
+  titlePanel("동전 던지기"),
+  
+  # 사용자 입력을 위한 사이드바 레이아웃
+  sidebarLayout(
+    sidebarPanel(
+      # 슬라이더 입력 추가 (범위 1~10으로 제한)
+      sliderInput("num_flips", "던지기 횟수:", min = 1, max = 10, value = 1),
+      # 버튼 추가
+      actionButton("flip_button", "동전 던지기")
+    ),
+    
+    # 출력을 표시할 메인 패널
+    mainPanel(
+      uiOutput("result")
+    )
+  )
+)
+
+# 서버 로직 정의
+server &lt;- function(input, output) {
+  
+  # 버튼이 클릭될 때마다 동전 던지기 결과 출력
+  observeEvent(input$flip_button, {
+    # 선택된 던지기 횟수에 따라 동전 던지기
+    coin_results &lt;- sample(c("앞면", "뒷면"), input$num_flips, replace = TRUE)
+    # 결과 카운트
+    heads_count &lt;- sum(coin_results == "앞면")
+    tails_count &lt;- sum(coin_results == "뒷면")
+    # 모든 경우의 수 계산
+    total_cases &lt;- 2^input$num_flips
+    # 결과 출력
+    result_text &lt;- paste(
+      "동전 던지기 결과: ", paste(coin_results, collapse = ", "),
+      "&lt;br&gt;&lt;br&gt;앞면 횟수:", heads_count,
+      "&lt;br&gt;&lt;br&gt;뒷면 횟수:", tails_count,
+      "&lt;br&gt;&lt;br&gt;총 던지기 횟수:", input$num_flips,
+      "&lt;br&gt;&lt;br&gt;&lt;br&gt;총 경우의 수:", total_cases,
+      sep = ""
+    )
+    output$result &lt;- renderUI({
+      HTML(result_text)
+    })
+  })
+  
+}
+
+# 앱 실행
+shinyApp(ui = ui, server = server)
+</code></pre>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -467,12 +539,82 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">소스 코드</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "쿼토 shinylive"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>쿼토와 shinylive 만남 </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "경우의 수"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "shinylive 앱"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">    resources: </span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">      - shinylive-sw.js</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="an">filters:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">  - shinylive</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="an">editor_options:</span><span class="co"> </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">  chunk_output_type: console</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 동전 던지기</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{shinylive-r}</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| standalone: true</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| viewerHeight: 350</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Shiny 패키지 불러오기</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">shiny</span><span class="kw">)</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># UI 정의</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="ex">ui</span> <span class="op">&lt;</span>- fluidPage<span class="er">(</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 앱 제목</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">titlePanel</span><span class="er">(</span><span class="st">"동전 던지기"</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 사용자 입력을 위한 사이드바 레이아웃</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="ex">sidebarLayout</span><span class="er">(</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="ex">sidebarPanel</span><span class="er">(</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>      <span class="co"># 슬라이더 입력 추가 (범위 1~10으로 제한)</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>      <span class="ex">sliderInput</span><span class="er">(</span><span class="st">"num_flips"</span><span class="ex">,</span> <span class="st">"던지기 횟수:"</span>, min = 1, max = 10, value = 1<span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>      <span class="co"># 버튼 추가</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>      <span class="ex">actionButton</span><span class="er">(</span><span class="st">"flip_button"</span><span class="ex">,</span> <span class="st">"동전 던지기"</span><span class="kw">)</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 출력을 표시할 메인 패널</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="ex">mainPanel</span><span class="er">(</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>      <span class="ex">uiOutput</span><span class="er">(</span><span class="st">"result"</span><span class="kw">)</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">)</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  <span class="kw">)</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co"># 서버 로직 정의</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="ex">server</span> <span class="op">&lt;</span>- function<span class="er">(</span><span class="ex">input,</span> output<span class="kw">)</span> <span class="kw">{</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 버튼이 클릭될 때마다 동전 던지기 결과 출력</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="ex">observeEvent</span><span class="er">(</span><span class="ex">input</span><span class="va">$flip_button</span><span class="ex">,</span> {</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 선택된 던지기 횟수에 따라 동전 던지기</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="ex">coin_results</span> <span class="op">&lt;</span>- sample<span class="er">(</span><span class="ex">c</span><span class="er">(</span><span class="st">"앞면"</span><span class="ex">,</span> <span class="st">"뒷면"</span><span class="kw">)</span><span class="ex">,</span> input<span class="va">$num_flips</span>, replace = TRUE<span class="kw">)</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 결과 카운트</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    <span class="ex">heads_count</span> <span class="op">&lt;</span>- sum<span class="er">(</span><span class="ex">coin_results</span> == <span class="st">"앞면"</span><span class="kw">)</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    <span class="ex">tails_count</span> <span class="op">&lt;</span>- sum<span class="er">(</span><span class="ex">coin_results</span> == <span class="st">"뒷면"</span><span class="kw">)</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 모든 경우의 수 계산</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    <span class="ex">total_cases</span> <span class="op">&lt;</span>- 2^input<span class="va">$num_flips</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 결과 출력</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    <span class="ex">result_text</span> <span class="op">&lt;</span>- paste<span class="er">(</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>      <span class="st">"동전 던지기 결과: "</span><span class="ex">,</span> paste<span class="er">(</span><span class="ex">coin_results,</span> collapse = <span class="st">", "</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>      <span class="st">"&lt;br&gt;&lt;br&gt;앞면 횟수:"</span><span class="ex">,</span> heads_count,</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>      <span class="st">"&lt;br&gt;&lt;br&gt;뒷면 횟수:"</span><span class="ex">,</span> tails_count,</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>      <span class="st">"&lt;br&gt;&lt;br&gt;총 던지기 횟수:"</span><span class="ex">,</span> input<span class="va">$num_flips</span>,</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>      <span class="st">"&lt;br&gt;&lt;br&gt;&lt;br&gt;총 경우의 수:"</span><span class="ex">,</span> total_cases,</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>      <span class="ex">sep</span> = <span class="st">""</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    <span class="kw">)</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    <span class="ex">output</span><span class="va">$result</span> <span class="op">&lt;</span>- renderUI<span class="er">(</span><span class="kw">{</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>      <span class="ex">HTML</span><span class="er">(</span><span class="ex">result_text</span><span class="kw">)</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>    <span class="kw">})</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span><span class="kw">)</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="co"># 앱 실행</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="ex">shinyApp</span><span class="er">(</span><span class="ex">ui</span> = ui, server = server<span class="kw">)</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
