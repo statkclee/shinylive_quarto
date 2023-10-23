@@ -12,5 +12,54 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "template.html",
+    "href": "template.html",
+    "title": "템플릿",
+    "section": "",
+    "text": "출처\n\n\n\nTemplate for r-shinylive Quarto document"
+  },
+  {
+    "objectID": "helloworld.html",
+    "href": "helloworld.html",
+    "title": "헬로월드",
+    "section": "",
+    "text": "실행화면코드\n\n\n#| standalone: true\n#| viewerHeight: 350\n\nlibrary(shiny)\n\nui &lt;- fluidPage(\n  titlePanel(\"쿼토 shinylive 세상 !!!\"),\n  sidebarLayout(\n    sidebarPanel(\n      h1(\"안녕 쿼토 shinylive\"),\n      actionButton(\"clickMe\", \"클릭 plz\")\n    ),\n    mainPanel(\n      h1(\"쿼토 shinylive 세상으로 ... \"),\n      textOutput(\"text\")\n    )\n  )\n)\n\nserver &lt;- function(input, output) {\n  observeEvent(input$clickMe, {\n    output$text &lt;- renderText({\n      paste(\"버튼을 눌러 쿼토 shinylive 세상에\", \n            input$clickMe, \n            \"번 입장했습니다.\")\n    })\n  })\n}\n\nshinyApp(ui = ui, server = server)\n\n\n```{shinylive-r}\n#| standalone: true\n#| viewerHeight: 350\n\nlibrary(shiny)\n\nui &lt;- fluidPage(\n  titlePanel(\"쿼토 shinylive 세상 !!!\"),\n  sidebarLayout(\n    sidebarPanel(\n      h1(\"안녕 쿼토 shinylive\"),\n      actionButton(\"clickMe\", \"클릭 plz\")\n    ),\n    mainPanel(\n      h1(\"쿼토 shinylive 세상으로 ... \"),\n      textOutput(\"text\")\n    )\n  )\n)\n\nserver &lt;- function(input, output) {\n  observeEvent(input$clickMe, {\n    output$text &lt;- renderText({\n      paste(\"버튼을 눌러 쿼토 shinylive 세상에\", \n            input$clickMe, \n            \"번 입장했습니다.\")\n    })\n  })\n}\n\nshinyApp(ui = ui, server = server)\n```"
+  },
+  {
+    "objectID": "template.html#패키지-설치",
+    "href": "template.html#패키지-설치",
+    "title": "템플릿",
+    "section": "패키지 설치",
+    "text": "패키지 설치\npak은 install.packages(), devtools::install_github() 패키지 설치 기능을 새롭게 구현한 패키지다. r-shinylive 패키지를 설치한다.\n\ninstall.packages(\"pak\")\npak::pak(\"posit-dev/r-shinylive\")"
+  },
+  {
+    "objectID": "template.html#쿼토-확장프로그램",
+    "href": "template.html#쿼토-확장프로그램",
+    "title": "템플릿",
+    "section": "쿼토 확장프로그램",
+    "text": "쿼토 확장프로그램\n쿼토 문서 제작에 필요한 확장프로그램을 설치한다. 신규 쿼토 프로젝트를 시작하는 경우와 기존 쿼토 프로젝트에 shinylive 문서 추가를 위해 확장프로그램 추가설치로 나뉜다.\n$ quarto create project default    # 신규 쿼토 shinylive 프로젝트\n$ quarto add quarto-ext/shinylive  # 쿼토 프로젝트에 shinylive 기능 문서추가"
+  },
+  {
+    "objectID": "template.html#qmd-yaml-추가",
+    "href": "template.html#qmd-yaml-추가",
+    "title": "템플릿",
+    "section": ".qmd YAML 추가",
+    "text": ".qmd YAML 추가\nYAML 에 쿼토 확장프로그램(필터)를 추가한다.\nfilters:\n  - shinylive"
+  },
+  {
+    "objectID": "template.html#쿼토-문서-템플릿",
+    "href": "template.html#쿼토-문서-템플릿",
+    "title": "템플릿",
+    "section": "쿼토 문서 템플릿",
+    "text": "쿼토 문서 템플릿\n```{shinylive}\n---\ntitle: \"쿼토 shinylive는 처음이지!!!\"\nfilters:\n  - shinylive\n---\n\n```{shinylive-r}\n#| standalone: true\n\nlibrary(shiny)\n\n# Shiny UI 정의\nui &lt;- fluidPage(\n  # UI 구성요소 추가\n)\n\n# Shiny 서버 로직 추가\nserver &lt;- function(input, output, session) {\n  # shiny 서버 코드 추가\n}\n\n# Shiny 앱 실행\nshinyApp(ui, server)\n```\n```"
+  },
+  {
+    "objectID": "template.html#문서-컴파일",
+    "href": "template.html#문서-컴파일",
+    "title": "템플릿",
+    "section": "문서 컴파일",
+    "text": "문서 컴파일\n쿼토문서를 컴파일하여 실행한다.\n$ quarto preview helloworld.qmd --no-browser --no-watch-inputs\n\n실행실행결과"
   }
 ]

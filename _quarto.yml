@@ -10,7 +10,8 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - template.qmd
+      - helloworld.qmd
 
 format:
   html:
@@ -18,5 +19,8 @@ format:
     css: styles.css
     toc: true
 
+filters:
+   - lightbox
+lightbox: auto
 
 

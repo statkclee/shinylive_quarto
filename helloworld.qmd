@@ -1,0 +1,90 @@
+---
+title: "헬로월드"
+subtitle: "쿼토 shinylive 첫번째 문서"
+format:
+  html:
+    resources: 
+      - shinylive-sw.js
+filters:
+  - shinylive
+---
+
+:::::{.column-body-outset}
+
+:::{.panel-tabset}
+
+## 실행화면
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 350
+
+library(shiny)
+
+ui <- fluidPage(
+  titlePanel("쿼토 shinylive 세상 !!!"),
+  sidebarLayout(
+    sidebarPanel(
+      h1("안녕 쿼토 shinylive"),
+      actionButton("clickMe", "클릭 plz")
+    ),
+    mainPanel(
+      h1("쿼토 shinylive 세상으로 ... "),
+      textOutput("text")
+    )
+  )
+)
+
+server <- function(input, output) {
+  observeEvent(input$clickMe, {
+    output$text <- renderText({
+      paste("버튼을 눌러 쿼토 shinylive 세상에", 
+            input$clickMe, 
+            "번 입장했습니다.")
+    })
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+
+## 코드
+
+```{{shinylive-r}}
+#| standalone: true
+#| viewerHeight: 350
+
+library(shiny)
+
+ui <- fluidPage(
+  titlePanel("쿼토 shinylive 세상 !!!"),
+  sidebarLayout(
+    sidebarPanel(
+      h1("안녕 쿼토 shinylive"),
+      actionButton("clickMe", "클릭 plz")
+    ),
+    mainPanel(
+      h1("쿼토 shinylive 세상으로 ... "),
+      textOutput("text")
+    )
+  )
+)
+
+server <- function(input, output) {
+  observeEvent(input$clickMe, {
+    output$text <- renderText({
+      paste("버튼을 눌러 쿼토 shinylive 세상에", 
+            input$clickMe, 
+            "번 입장했습니다.")
+    })
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+
+:::
+
+:::::
