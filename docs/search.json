@@ -7,13 +7,6 @@
     "text": "쿼토와 shinylive 만남"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
-  },
-  {
     "objectID": "template.html",
     "href": "template.html",
     "title": "템플릿",
@@ -21,18 +14,11 @@
     "text": "출처\n\n\n\nTemplate for r-shinylive Quarto document"
   },
   {
-    "objectID": "helloworld.html",
-    "href": "helloworld.html",
-    "title": "헬로월드",
-    "section": "",
-    "text": "실행화면코드\n\n\n#| standalone: true\n#| viewerHeight: 350\n\nlibrary(shiny)\n\nui &lt;- fluidPage(\n  titlePanel(\"쿼토 shinylive 세상 !!!\"),\n  sidebarLayout(\n    sidebarPanel(\n      h1(\"안녕 쿼토 shinylive\"),\n      actionButton(\"clickMe\", \"클릭 plz\")\n    ),\n    mainPanel(\n      h1(\"쿼토 shinylive 세상으로 ... \"),\n      textOutput(\"text\")\n    )\n  )\n)\n\nserver &lt;- function(input, output) {\n  observeEvent(input$clickMe, {\n    output$text &lt;- renderText({\n      paste(\"버튼을 눌러 쿼토 shinylive 세상에\", \n            input$clickMe, \n            \"번 입장했습니다.\")\n    })\n  })\n}\n\nshinyApp(ui = ui, server = server)\n\n\n```{shinylive-r}\n#| standalone: true\n#| viewerHeight: 350\n\nlibrary(shiny)\n\nui &lt;- fluidPage(\n  titlePanel(\"쿼토 shinylive 세상 !!!\"),\n  sidebarLayout(\n    sidebarPanel(\n      h1(\"안녕 쿼토 shinylive\"),\n      actionButton(\"clickMe\", \"클릭 plz\")\n    ),\n    mainPanel(\n      h1(\"쿼토 shinylive 세상으로 ... \"),\n      textOutput(\"text\")\n    )\n  )\n)\n\nserver &lt;- function(input, output) {\n  observeEvent(input$clickMe, {\n    output$text &lt;- renderText({\n      paste(\"버튼을 눌러 쿼토 shinylive 세상에\", \n            input$clickMe, \n            \"번 입장했습니다.\")\n    })\n  })\n}\n\nshinyApp(ui = ui, server = server)\n```"
-  },
-  {
     "objectID": "template.html#패키지-설치",
     "href": "template.html#패키지-설치",
     "title": "템플릿",
     "section": "패키지 설치",
-    "text": "패키지 설치\npak은 install.packages(), devtools::install_github() 패키지 설치 기능을 새롭게 구현한 패키지다. r-shinylive 패키지를 설치한다.\n\ninstall.packages(\"pak\")\npak::pak(\"posit-dev/r-shinylive\")"
+    "text": "패키지 설치\npak은 install.packages(), devtools::install_github() 패키지 설치 기능을 새롭게 구현한 패키지다. r-shinylive 패키지를 설치한다.\n\n코드install.packages(\"pak\")\npak::pak(\"posit-dev/r-shinylive\")"
   },
   {
     "objectID": "template.html#쿼토-확장프로그램",
@@ -45,7 +31,7 @@
     "objectID": "template.html#qmd-yaml-추가",
     "href": "template.html#qmd-yaml-추가",
     "title": "템플릿",
-    "section": ".qmd YAML 추가",
+    "section": "\n.qmd YAML 추가",
     "text": ".qmd YAML 추가\nYAML 에 쿼토 확장프로그램(필터)를 추가한다.\nfilters:\n  - shinylive"
   },
   {
@@ -60,7 +46,14 @@
     "href": "template.html#문서-컴파일",
     "title": "템플릿",
     "section": "문서 컴파일",
-    "text": "문서 컴파일\n쿼토문서를 컴파일하여 실행한다.\n$ quarto preview helloworld.qmd --no-browser --no-watch-inputs\n\n실행실행결과"
+    "text": "문서 컴파일\n쿼토문서를 컴파일하여 실행한다.\n$ quarto preview helloworld.qmd --no-browser --no-watch-inputs\n\n\n실행\n실행결과"
+  },
+  {
+    "objectID": "helloworld.html",
+    "href": "helloworld.html",
+    "title": "헬로월드",
+    "section": "",
+    "text": "실행화면코드\n\n\n#| standalone: true\n#| viewerHeight: 350\n\nlibrary(shiny)\n\nui &lt;- fluidPage(\n  titlePanel(\"쿼토 shinylive 세상 !!!\"),\n  sidebarLayout(\n    sidebarPanel(\n      h1(\"안녕 쿼토 shinylive\"),\n      actionButton(\"clickMe\", \"클릭 plz\")\n    ),\n    mainPanel(\n      h1(\"쿼토 shinylive 세상으로 ... \"),\n      textOutput(\"text\")\n    )\n  )\n)\n\nserver &lt;- function(input, output) {\n  observeEvent(input$clickMe, {\n    output$text &lt;- renderText({\n      paste(\"버튼을 눌러 쿼토 shinylive 세상에\", \n            input$clickMe, \n            \"번 입장했습니다.\")\n    })\n  })\n}\n\nshinyApp(ui = ui, server = server)\n\n\n```{shinylive-r}\n#| standalone: true\n#| viewerHeight: 350\n\nlibrary(shiny)\n\nui &lt;- fluidPage(\n  titlePanel(\"쿼토 shinylive 세상 !!!\"),\n  sidebarLayout(\n    sidebarPanel(\n      h1(\"안녕 쿼토 shinylive\"),\n      actionButton(\"clickMe\", \"클릭 plz\")\n    ),\n    mainPanel(\n      h1(\"쿼토 shinylive 세상으로 ... \"),\n      textOutput(\"text\")\n    )\n  )\n)\n\nserver &lt;- function(input, output) {\n  observeEvent(input$clickMe, {\n    output$text &lt;- renderText({\n      paste(\"버튼을 눌러 쿼토 shinylive 세상에\", \n            input$clickMe, \n            \"번 입장했습니다.\")\n    })\n  })\n}\n\nshinyApp(ui = ui, server = server)\n```"
   },
   {
     "objectID": "combinatorics.html",
@@ -77,13 +70,6 @@
     "text": "수식으로 표현\n기본 경우의 수를 수식으로 표현하는 것은 간단하다.\n\n단순 계산: 가능한 결과의 수는 단순히 그 수를 나타낸다. 예를 들어, 주사위를 던질 때 경우의 수는 \\(6\\)이다.\n곱의 법칙: 두 이상의 독립적인 사건이 있을 때, 첫 번째 사건의 가능한 결과의 수와 두 번째 사건의 가능한 결과의 수를 곱하여 총 경우의 수를 찾는다.\n\n수식: \\(N = n_1 \\times n_2 \\times \\ldots \\times n_k\\)\n\\(N\\)은 총 경우의 수이고, \\(n_1, n_2, \\ldots, n_k\\)는 각각의 사건에 대한 가능한 결과의 수이다.\n\n합의 법칙: 두 이상의 상호 배타적인 사건이 있을 때, 각 사건의 가능한 결과의 수를 더하여 총 경우의 수를 찾는다.\n\n수식: \\(N = n_1 + n_2 + \\ldots + n_k\\)\n\\(N\\)은 총 경우의 수이고, \\(n_1, n_2, \\ldots, n_k\\)는 각각의 사건에 대한 가능한 결과의 수이다."
   },
   {
-    "objectID": "combinatorics.html#footnotes",
-    "href": "combinatorics.html#footnotes",
-    "title": "경우의 수",
-    "section": "각주",
-    "text": "각주\n\n\n경우의 수는 영어로 “Number of Cases” 또는 “Counting”으로 표현할수 있으며 수학의 한분야로 조합론(Combinatorics)으로 번역된다.↩︎"
-  },
-  {
     "objectID": "combinatorics.html#r-코드",
     "href": "combinatorics.html#r-코드",
     "title": "경우의 수",
@@ -91,24 +77,38 @@
     "text": "R 코드\n주사위 한번 던지기, 동전 3번 던지기, 주사위와 동전 함께 던지는 경우의 수를 계산해보자.\n\n주사위\n🟡 Loading\n  webR...\n\n\n  \n\n\n\n\n동전 3번 던지기\n🟡 Loading\n  webR...\n\n\n  \n\n\n\n\n동전과 주사위 던지기\n🟡 Loading\n  webR..."
   },
   {
-    "objectID": "combinatorics.html#동전-던지기",
-    "href": "combinatorics.html#동전-던지기",
-    "title": "경우의 수",
-    "section": "동전 던지기",
-    "text": "동전 던지기\n#| standalone: true\n\n# Shiny 패키지 불러오기\nlibrary(shiny)\n\n# UI 정의\nui &lt;- fluidPage(\n  # 앱 제목\n  titlePanel(\"동전 던지기\"),\n  \n  # 사용자 입력을 위한 사이드바 레이아웃\n  sidebarLayout(\n    sidebarPanel(\n      # 슬라이더 입력 추가\n      sliderInput(\"num_flips\", \"던지기 횟수:\", min = 1, max = 100, value = 1),\n      # 버튼 추가\n      actionButton(\"flip_button\", \"동전 던지기\")\n    ),\n    \n    # 출력을 표시할 메인 패널\n    mainPanel(\n      textOutput(\"result\")\n    )\n  )\n)\n\n# 서버 로직 정의\nserver &lt;- function(input, output) {\n  \n  # 버튼이 클릭될 때마다 동전 던지기 결과 출력\n  observeEvent(input$flip_button, {\n    # 선택된 던지기 횟수에 따라 동전 던지기\n    coin_results &lt;- sample(c(\"앞면\", \"뒷면\"), input$num_flips, replace = TRUE)\n    # 결과 카운트\n    heads_count &lt;- sum(coin_results == \"앞면\")\n    tails_count &lt;- sum(coin_results == \"뒷면\")\n    # 결과 출력\n    output$result &lt;- renderText({\n      paste(\"앞면 횟수:\", heads_count, \" / 뒷면 횟수:\", tails_count)\n    })\n  })\n  \n}\n\n# 앱 실행\nshinyApp(ui = ui, server = server)"
-  },
-  {
-    "objectID": "combinatorics-shinylive.html",
-    "href": "combinatorics-shinylive.html",
+    "objectID": "combinatorics-coin.html",
+    "href": "combinatorics-coin.html",
     "title": "경우의 수",
     "section": "",
     "text": "#| standalone: true\n#| viewerHeight: 350\n\n# Shiny 패키지 불러오기\nlibrary(shiny)\n\n# UI 정의\nui &lt;- fluidPage(\n  # 앱 제목\n  titlePanel(\"동전 던지기\"),\n  \n  # 사용자 입력을 위한 사이드바 레이아웃\n  sidebarLayout(\n    sidebarPanel(\n      # 슬라이더 입력 추가 (범위 1~10으로 제한)\n      sliderInput(\"num_flips\", \"던지기 횟수:\", min = 1, max = 10, value = 1),\n      # 버튼 추가\n      actionButton(\"flip_button\", \"동전 던지기\")\n    ),\n    \n    # 출력을 표시할 메인 패널\n    mainPanel(\n      uiOutput(\"result\")\n    )\n  )\n)\n\n# 서버 로직 정의\nserver &lt;- function(input, output) {\n  \n  # 버튼이 클릭될 때마다 동전 던지기 결과 출력\n  observeEvent(input$flip_button, {\n    # 선택된 던지기 횟수에 따라 동전 던지기\n    coin_results &lt;- sample(c(\"앞면\", \"뒷면\"), input$num_flips, replace = TRUE)\n    # 결과 카운트\n    heads_count &lt;- sum(coin_results == \"앞면\")\n    tails_count &lt;- sum(coin_results == \"뒷면\")\n    # 모든 경우의 수 계산\n    total_cases &lt;- 2^input$num_flips\n    # 결과 출력\n    result_text &lt;- paste(\n      \"동전 던지기 결과: \", paste(coin_results, collapse = \", \"),\n      \"&lt;br&gt;&lt;br&gt;앞면 횟수:\", heads_count,\n      \"&lt;br&gt;&lt;br&gt;뒷면 횟수:\", tails_count,\n      \"&lt;br&gt;&lt;br&gt;총 던지기 횟수:\", input$num_flips,\n      \"&lt;br&gt;&lt;br&gt;&lt;br&gt;총 경우의 수:\", total_cases,\n      sep = \"\"\n    )\n    output$result &lt;- renderUI({\n      HTML(result_text)\n    })\n  })\n  \n}\n\n# 앱 실행\nshinyApp(ui = ui, server = server)"
   },
   {
-    "objectID": "combinatorics-shinylive.html#동전-던지기",
-    "href": "combinatorics-shinylive.html#동전-던지기",
+    "objectID": "combinatorics-coin.html#동전-던지기",
+    "href": "combinatorics-coin.html#동전-던지기",
     "title": "경우의 수",
     "section": "",
     "text": "#| standalone: true\n#| viewerHeight: 350\n\n# Shiny 패키지 불러오기\nlibrary(shiny)\n\n# UI 정의\nui &lt;- fluidPage(\n  # 앱 제목\n  titlePanel(\"동전 던지기\"),\n  \n  # 사용자 입력을 위한 사이드바 레이아웃\n  sidebarLayout(\n    sidebarPanel(\n      # 슬라이더 입력 추가 (범위 1~10으로 제한)\n      sliderInput(\"num_flips\", \"던지기 횟수:\", min = 1, max = 10, value = 1),\n      # 버튼 추가\n      actionButton(\"flip_button\", \"동전 던지기\")\n    ),\n    \n    # 출력을 표시할 메인 패널\n    mainPanel(\n      uiOutput(\"result\")\n    )\n  )\n)\n\n# 서버 로직 정의\nserver &lt;- function(input, output) {\n  \n  # 버튼이 클릭될 때마다 동전 던지기 결과 출력\n  observeEvent(input$flip_button, {\n    # 선택된 던지기 횟수에 따라 동전 던지기\n    coin_results &lt;- sample(c(\"앞면\", \"뒷면\"), input$num_flips, replace = TRUE)\n    # 결과 카운트\n    heads_count &lt;- sum(coin_results == \"앞면\")\n    tails_count &lt;- sum(coin_results == \"뒷면\")\n    # 모든 경우의 수 계산\n    total_cases &lt;- 2^input$num_flips\n    # 결과 출력\n    result_text &lt;- paste(\n      \"동전 던지기 결과: \", paste(coin_results, collapse = \", \"),\n      \"&lt;br&gt;&lt;br&gt;앞면 횟수:\", heads_count,\n      \"&lt;br&gt;&lt;br&gt;뒷면 횟수:\", tails_count,\n      \"&lt;br&gt;&lt;br&gt;총 던지기 횟수:\", input$num_flips,\n      \"&lt;br&gt;&lt;br&gt;&lt;br&gt;총 경우의 수:\", total_cases,\n      sep = \"\"\n    )\n    output$result &lt;- renderUI({\n      HTML(result_text)\n    })\n  })\n  \n}\n\n# 앱 실행\nshinyApp(ui = ui, server = server)"
+  },
+  {
+    "objectID": "combinatorics-coin.html#주사위-던지기",
+    "href": "combinatorics-coin.html#주사위-던지기",
+    "title": "경우의 수",
+    "section": "주사위 던지기",
+    "text": "주사위 던지기\n#| standalone: true\n#| viewerHeight: 350\n\nlibrary(shiny)\n\n# UI layout\nui &lt;- fluidPage(\n  titlePanel(\"통합 주사위 던지기 모사\"),\n  sidebarLayout(\n    sidebarPanel(\n      selectInput(\"display_mode\", \"표시 방식 선택\", \n                  c(\"텍스트\", \"ASCII 아트\", \"유니코드\", \"이미지\")),\n      actionButton(\"roll\", \"주사위 던지기\")\n    ),\n    mainPanel(\n      uiOutput(\"result_ui\"),\n      textOutput(\"result_text\"),\n      htmlOutput(\"result_html\")\n    )\n  )\n)\n\n# Server logic\nserver &lt;- function(input, output, session) {\n  observeEvent(input$roll, {\n    dice_result &lt;- sample(1:6, 1)\n    \n    # Text mode\n    if (input$display_mode == \"텍스트\") {\n      output$result_text &lt;- renderText({\n        paste(\"주사위 눈은 \", dice_result, \"이다.\")\n      })\n      output$result_ui &lt;- renderUI({})\n      output$result_html &lt;- renderUI({})\n    }\n    \n    # ASCII art mode\n    if (input$display_mode == \"ASCII 아트\") {\n      ascii_art &lt;- switch(\n        dice_result,\n        \"1\" = \"-----\\\\n|   |\\\\n| * |\\\\n|   |\\\\n-----\",\n        \"2\" = \"-----\\\\n|*  |\\\\n|   |\\\\n|  *|\\\\n-----\",\n        \"3\" = \"-----\\\\n|*  |\\\\n| * |\\\\n|  *|\\\\n-----\",\n        \"4\" = \"-----\\\\n|* *|\\\\n|   |\\\\n|* *|\\\\n-----\",\n        \"5\" = \"-----\\\\n|* *|\\\\n| * |\\\\n|* *|\\\\n-----\",\n        \"6\" = \"-----\\\\n|* *|\\\\n|* *|\\\\n|* *|\\\\n-----\"\n      )\n      output$result_ui &lt;- renderUI({\n        tagList(\n          verbatimTextOutput(paste0(\"ascii_\", dice_result)),\n          tags$h3(paste(\"주사위 눈은 \", dice_result, \"이다.\"))\n        )\n      })\n      output[[paste0(\"ascii_\", dice_result)]] &lt;- renderText({ ascii_art })\n    }\n    \n    # Unicode mode\n    if (input$display_mode == \"유니코드\") {\n      unicode_dice &lt;- intToUtf8(9855 + dice_result)\n      output$result_text &lt;- renderText({})\n      output$result_ui &lt;- renderUI({})\n      output$result_html &lt;- renderUI({\n        HTML(paste(\"&lt;span style='font-size: 48px;'&gt;\", unicode_dice, \"&lt;/span&gt;\"))\n      })\n    }\n    \n    # Image mode (assuming images are stored in a 'www' folder)\n    if (input$display_mode == \"이미지\") {\n      output$result_text &lt;- renderText({})\n      output$result_ui &lt;- renderUI({\n        imageOutput(\"dice_image\")\n      })\n      output$result_html &lt;- renderUI({})\n      output$dice_image &lt;- renderImage({\n        list(\n          src = paste0(\"www/dice_0\", dice_result, \".png\"),\n          contentType = \"image/png\",\n          alt = paste(\"주사위 눈은 \", dice_result, \"이다.\")\n        )\n      }, deleteFile = FALSE)\n    }\n  })\n}\n\n# Run the app\nshinyApp(ui, server)"
+  },
+  {
+    "objectID": "combinatorics-dice.html",
+    "href": "combinatorics-dice.html",
+    "title": "경우의 수",
+    "section": "",
+    "text": "#| standalone: true\n#| viewerHeight: 350\n\n# Load required package\nlibrary(shiny)\n\n# UI layout\nui &lt;- fluidPage(\n  titlePanel(\"통합 주사위 던지기 모사\"),\n  sidebarLayout(\n    sidebarPanel(\n      selectInput(\"display_mode\", \"표시 방식 선택\", \n                  c(\"텍스트\", \"ASCII 아트\", \"유니코드\", \"이미지\")),\n      actionButton(\"roll\", \"주사위 던지기\")\n    ),\n    mainPanel(\n      uiOutput(\"result_ui\"),\n      textOutput(\"result_text\"),\n      htmlOutput(\"result_html\")\n    )\n  )\n)\n\n# Server logic\nserver &lt;- function(input, output, session) {\n  observeEvent(input$roll, {\n    dice_result &lt;- sample(1:6, 1)\n    \n    # Text mode\n    if (input$display_mode == \"텍스트\") {\n      output$result_text &lt;- renderText({\n        paste(\"주사위 눈은 \", dice_result, \"이다.\")\n      })\n      output$result_ui &lt;- renderUI({})\n      output$result_html &lt;- renderUI({})\n    }\n    \n    # ASCII art mode\n    if (input$display_mode == \"ASCII 아트\") {\n      ascii_art &lt;- switch(\n        dice_result,\n        \"1\" = \"-----\\\\n|   |\\\\n| * |\\\\n|   |\\\\n-----\",\n        \"2\" = \"-----\\\\n|*  |\\\\n|   |\\\\n|  *|\\\\n-----\",\n        \"3\" = \"-----\\\\n|*  |\\\\n| * |\\\\n|  *|\\\\n-----\",\n        \"4\" = \"-----\\\\n|* *|\\\\n|   |\\\\n|* *|\\\\n-----\",\n        \"5\" = \"-----\\\\n|* *|\\\\n| * |\\\\n|* *|\\\\n-----\",\n        \"6\" = \"-----\\\\n|* *|\\\\n|* *|\\\\n|* *|\\\\n-----\"\n      )\n      output$result_ui &lt;- renderUI({\n        tagList(\n          verbatimTextOutput(paste0(\"ascii_\", dice_result)),\n          tags$h3(paste(\"주사위 눈은 \", dice_result, \"이다.\"))\n        )\n      })\n      output[[paste0(\"ascii_\", dice_result)]] &lt;- renderText({ ascii_art })\n    }\n    \n    # Unicode mode\n    if (input$display_mode == \"유니코드\") {\n      unicode_dice &lt;- intToUtf8(9855 + dice_result)\n      output$result_text &lt;- renderText({})\n      output$result_ui &lt;- renderUI({})\n      output$result_html &lt;- renderUI({\n        HTML(paste(\"&lt;span style='font-size: 48px;'&gt;\", unicode_dice, \"&lt;/span&gt;\"))\n      })\n    }\n    \n    # Image mode (assuming images are stored in a 'www' folder)\n    if (input$display_mode == \"이미지\") {\n      output$result_text &lt;- renderText({})\n      output$result_ui &lt;- renderUI({\n        imageOutput(\"dice_image\")\n      })\n      output$result_html &lt;- renderUI({})\n      output$dice_image &lt;- renderImage({\n        list(\n          src = paste0(\"www/dice_0\", dice_result, \".png\"),\n          contentType = \"image/png\",\n          alt = paste(\"주사위 눈은 \", dice_result, \"이다.\")\n        )\n      }, deleteFile = FALSE)\n    }\n  })\n}\n\n# Run the app\nshinyApp(ui, server)"
+  },
+  {
+    "objectID": "combinatorics-dice.html#주사위-던지기",
+    "href": "combinatorics-dice.html#주사위-던지기",
+    "title": "경우의 수",
+    "section": "",
+    "text": "#| standalone: true\n#| viewerHeight: 350\n\n# Load required package\nlibrary(shiny)\n\n# UI layout\nui &lt;- fluidPage(\n  titlePanel(\"통합 주사위 던지기 모사\"),\n  sidebarLayout(\n    sidebarPanel(\n      selectInput(\"display_mode\", \"표시 방식 선택\", \n                  c(\"텍스트\", \"ASCII 아트\", \"유니코드\", \"이미지\")),\n      actionButton(\"roll\", \"주사위 던지기\")\n    ),\n    mainPanel(\n      uiOutput(\"result_ui\"),\n      textOutput(\"result_text\"),\n      htmlOutput(\"result_html\")\n    )\n  )\n)\n\n# Server logic\nserver &lt;- function(input, output, session) {\n  observeEvent(input$roll, {\n    dice_result &lt;- sample(1:6, 1)\n    \n    # Text mode\n    if (input$display_mode == \"텍스트\") {\n      output$result_text &lt;- renderText({\n        paste(\"주사위 눈은 \", dice_result, \"이다.\")\n      })\n      output$result_ui &lt;- renderUI({})\n      output$result_html &lt;- renderUI({})\n    }\n    \n    # ASCII art mode\n    if (input$display_mode == \"ASCII 아트\") {\n      ascii_art &lt;- switch(\n        dice_result,\n        \"1\" = \"-----\\\\n|   |\\\\n| * |\\\\n|   |\\\\n-----\",\n        \"2\" = \"-----\\\\n|*  |\\\\n|   |\\\\n|  *|\\\\n-----\",\n        \"3\" = \"-----\\\\n|*  |\\\\n| * |\\\\n|  *|\\\\n-----\",\n        \"4\" = \"-----\\\\n|* *|\\\\n|   |\\\\n|* *|\\\\n-----\",\n        \"5\" = \"-----\\\\n|* *|\\\\n| * |\\\\n|* *|\\\\n-----\",\n        \"6\" = \"-----\\\\n|* *|\\\\n|* *|\\\\n|* *|\\\\n-----\"\n      )\n      output$result_ui &lt;- renderUI({\n        tagList(\n          verbatimTextOutput(paste0(\"ascii_\", dice_result)),\n          tags$h3(paste(\"주사위 눈은 \", dice_result, \"이다.\"))\n        )\n      })\n      output[[paste0(\"ascii_\", dice_result)]] &lt;- renderText({ ascii_art })\n    }\n    \n    # Unicode mode\n    if (input$display_mode == \"유니코드\") {\n      unicode_dice &lt;- intToUtf8(9855 + dice_result)\n      output$result_text &lt;- renderText({})\n      output$result_ui &lt;- renderUI({})\n      output$result_html &lt;- renderUI({\n        HTML(paste(\"&lt;span style='font-size: 48px;'&gt;\", unicode_dice, \"&lt;/span&gt;\"))\n      })\n    }\n    \n    # Image mode (assuming images are stored in a 'www' folder)\n    if (input$display_mode == \"이미지\") {\n      output$result_text &lt;- renderText({})\n      output$result_ui &lt;- renderUI({\n        imageOutput(\"dice_image\")\n      })\n      output$result_html &lt;- renderUI({})\n      output$dice_image &lt;- renderImage({\n        list(\n          src = paste0(\"www/dice_0\", dice_result, \".png\"),\n          contentType = \"image/png\",\n          alt = paste(\"주사위 눈은 \", dice_result, \"이다.\")\n        )\n      }, deleteFile = FALSE)\n    }\n  })\n}\n\n# Run the app\nshinyApp(ui, server)"
   }
 ]

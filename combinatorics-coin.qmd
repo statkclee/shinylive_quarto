@@ -1,0 +1,170 @@
+---
+title: "경우의 수"
+subtitle: "shinylive 앱"
+format:
+  html:
+    resources: 
+      - shinylive-sw.js
+filters:
+  - shinylive
+editor_options: 
+  chunk_output_type: console
+---
+
+
+## 동전 던지기
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 350
+
+# Shiny 패키지 불러오기
+library(shiny)
+
+# UI 정의
+ui <- fluidPage(
+  # 앱 제목
+  titlePanel("동전 던지기"),
+  
+  # 사용자 입력을 위한 사이드바 레이아웃
+  sidebarLayout(
+    sidebarPanel(
+      # 슬라이더 입력 추가 (범위 1~10으로 제한)
+      sliderInput("num_flips", "던지기 횟수:", min = 1, max = 10, value = 1),
+      # 버튼 추가
+      actionButton("flip_button", "동전 던지기")
+    ),
+    
+    # 출력을 표시할 메인 패널
+    mainPanel(
+      uiOutput("result")
+    )
+  )
+)
+
+# 서버 로직 정의
+server <- function(input, output) {
+  
+  # 버튼이 클릭될 때마다 동전 던지기 결과 출력
+  observeEvent(input$flip_button, {
+    # 선택된 던지기 횟수에 따라 동전 던지기
+    coin_results <- sample(c("앞면", "뒷면"), input$num_flips, replace = TRUE)
+    # 결과 카운트
+    heads_count <- sum(coin_results == "앞면")
+    tails_count <- sum(coin_results == "뒷면")
+    # 모든 경우의 수 계산
+    total_cases <- 2^input$num_flips
+    # 결과 출력
+    result_text <- paste(
+      "동전 던지기 결과: ", paste(coin_results, collapse = ", "),
+      "<br><br>앞면 횟수:", heads_count,
+      "<br><br>뒷면 횟수:", tails_count,
+      "<br><br>총 던지기 횟수:", input$num_flips,
+      "<br><br><br>총 경우의 수:", total_cases,
+      sep = ""
+    )
+    output$result <- renderUI({
+      HTML(result_text)
+    })
+  })
+  
+}
+
+# 앱 실행
+shinyApp(ui = ui, server = server)
+
+```
+
+
+## 주사위 던지기
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 350
+
+library(shiny)
+
+# UI layout
+ui <- fluidPage(
+  titlePanel("통합 주사위 던지기 모사"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("display_mode", "표시 방식 선택", 
+                  c("텍스트", "ASCII 아트", "유니코드", "이미지")),
+      actionButton("roll", "주사위 던지기")
+    ),
+    mainPanel(
+      uiOutput("result_ui"),
+      textOutput("result_text"),
+      htmlOutput("result_html")
+    )
+  )
+)
+
+# Server logic
+server <- function(input, output, session) {
+  observeEvent(input$roll, {
+    dice_result <- sample(1:6, 1)
+    
+    # Text mode
+    if (input$display_mode == "텍스트") {
+      output$result_text <- renderText({
+        paste("주사위 눈은 ", dice_result, "이다.")
+      })
+      output$result_ui <- renderUI({})
+      output$result_html <- renderUI({})
+    }
+    
+    # ASCII art mode
+    if (input$display_mode == "ASCII 아트") {
+      ascii_art <- switch(
+        dice_result,
+        "1" = "-----\\n|   |\\n| * |\\n|   |\\n-----",
+        "2" = "-----\\n|*  |\\n|   |\\n|  *|\\n-----",
+        "3" = "-----\\n|*  |\\n| * |\\n|  *|\\n-----",
+        "4" = "-----\\n|* *|\\n|   |\\n|* *|\\n-----",
+        "5" = "-----\\n|* *|\\n| * |\\n|* *|\\n-----",
+        "6" = "-----\\n|* *|\\n|* *|\\n|* *|\\n-----"
+      )
+      output$result_ui <- renderUI({
+        tagList(
+          verbatimTextOutput(paste0("ascii_", dice_result)),
+          tags$h3(paste("주사위 눈은 ", dice_result, "이다."))
+        )
+      })
+      output[[paste0("ascii_", dice_result)]] <- renderText({ ascii_art })
+    }
+    
+    # Unicode mode
+    if (input$display_mode == "유니코드") {
+      unicode_dice <- intToUtf8(9855 + dice_result)
+      output$result_text <- renderText({})
+      output$result_ui <- renderUI({})
+      output$result_html <- renderUI({
+        HTML(paste("<span style='font-size: 48px;'>", unicode_dice, "</span>"))
+      })
+    }
+    
+    # Image mode (assuming images are stored in a 'www' folder)
+    if (input$display_mode == "이미지") {
+      output$result_text <- renderText({})
+      output$result_ui <- renderUI({
+        imageOutput("dice_image")
+      })
+      output$result_html <- renderUI({})
+      output$dice_image <- renderImage({
+        list(
+          src = paste0("www/dice_0", dice_result, ".png"),
+          contentType = "image/png",
+          alt = paste("주사위 눈은 ", dice_result, "이다.")
+        )
+      }, deleteFile = FALSE)
+    }
+  })
+}
+
+# Run the app
+shinyApp(ui, server)
+
+
+```

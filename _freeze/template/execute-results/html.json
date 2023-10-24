@@ -1,0 +1,14 @@
+{
+  "hash": "b9600be5153180aa107fca89123ce918",
+  "result": {
+    "markdown": "---\ntitle: \"템플릿\"\nsubtitle: \"쿼토 shinylive 문서 템플릿\"\n---\n\n\n:::{.callout-note}\n### 출처\n\n[Template for r-shinylive Quarto document](https://quarto.thecoatlessprofessor.com/r-shinylive-demo/template-r-shinylive.html)\n:::\n\n# 템플릿\n\n`````md\n---\ntitle: \"헬로월드 템플릿\"\nsubtitle: \"쿼토 shinylive 첫번째 문서\"\nformat:\n  html:\n    resources: \n      - shinylive-sw.js\nfilters:\n  - shinylive\n---\n\n```{shinylive-r}\n#| standalone: true\n\nui <- ...\n\nserver <- function(input, output, session) {\n  ...\n}\n\nshinyApp(ui, server)\n```\n\n`````\n\n# 환경설정\n\n## 패키지 설치\n\n`pak`은 `install.packages()`, `devtools::install_github()` 패키지 설치 기능을 새롭게 구현한 패키지다. `r-shinylive` 패키지를 설치한다.\n\n\n::: {.cell}\n\n```{.r .cell-code}\ninstall.packages(\"pak\")\npak::pak(\"posit-dev/r-shinylive\")\n```\n:::\n\n\n## 쿼토 확장프로그램\n\n쿼토 문서 제작에 필요한 확장프로그램을 설치한다.\n신규 쿼토 프로젝트를 시작하는 경우와 기존 쿼토 프로젝트에 `shinylive` 문서 추가를 위해 확장프로그램 추가설치로 나뉜다.\n\n```bash\n$ quarto create project default    # 신규 쿼토 shinylive 프로젝트\n$ quarto add quarto-ext/shinylive  # 쿼토 프로젝트에 shinylive 기능 문서추가\n```\n\n## `.qmd` YAML 추가\n\nYAML 에 쿼토 확장프로그램(필터)를 추가한다.\n\n```bash\nfilters:\n  - shinylive\n```\n\n## 쿼토 문서 템플릿\n\n`````{{shinylive}}\n---\ntitle: \"쿼토 shinylive는 처음이지!!!\"\nfilters:\n  - shinylive\n---\n\n```{shinylive-r}\n#| standalone: true\n\nlibrary(shiny)\n\n# Shiny UI 정의\nui <- fluidPage(\n  # UI 구성요소 추가\n)\n\n# Shiny 서버 로직 추가\nserver <- function(input, output, session) {\n  # shiny 서버 코드 추가\n}\n\n# Shiny 앱 실행\nshinyApp(ui, server)\n```\n`````\n\n## 문서 컴파일\n\n쿼토문서를 컴파일하여 실행한다.\n\n```bash\n$ quarto preview helloworld.qmd --no-browser --no-watch-inputs\n```\n\n:::{.panel-tabset}\n### 실행\n\n![](images/quarto_shinylive_terminal.png)\n\n### 실행결과\n\n:::{layout-ncol=2}\n\n![](images/helloworld_loading.png)\n\n![](images/helloworld_run.png)\n\n:::\n\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

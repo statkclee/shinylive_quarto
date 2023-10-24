@@ -17,8 +17,11 @@ website:
         menu: 
           - href: combinatorics.qmd
             text: "경우의 수"
-          - href: combinatorics-shinylive.qmd
-            text: "경우의 수: shinylive"
+          - href: combinatorics-dice.qmd
+            text: "경우의 수: 주사위"            
+          - href: combinatorics-coin.qmd
+            text: "경우의 수: 동전"
+
 format:
   html:
     theme: cosmo
